@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package Kombat;
+
+option go_package = "Kombat_grpc/proto;Kombat";
+
+service KombatService {
+  rpc GetKombatInfo (KombatRequest) returns (KombatResponse);
+  rpc GetKombatList(Empty) returns (stream KombatResponse);
+  rpc addKombats(stream NewKombatRequest) returns (AddKombatResponse);
+  rpc GetKombatByType( stream KombatTypeRequest) returns (stream KombatResponse);
+  rpc GetKombatBySkills( stream KombatSkillsRequest) returns (stream KombatResponse);
+}
+
+message KombatRequest {
+  string name = 1;
+}
+
+message KombatResponse {
+  string name = 1;
+  string type = 2;
+  string skills = 3;
+}
+
+message NewKombatRequest {
+  string name = 1;
+  string type = 2;
+  string skills = 3;
+}
+
+message AddKombatResponse {
+  int32 count = 1;
+  string error = 2;
+}
+
+message Empty {}
+
+message KombatTypeRequest {
+  string type = 1;
+}
+
+message KombatSkillsRequest {
+  string skills = 1;
+}
+
+
